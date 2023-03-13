@@ -1,3 +1,7 @@
+import { getCategories } from "@/Http";
+import { AxiosResponse } from "axios";
+import { ICategory, ICollectionResponse } from "@/Types";
+import { GetServerSideProps } from "next";
 import Head from "next/head";
 
 export default function Home() {
@@ -14,3 +18,17 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  //categories
+  const { data }: AxiosResponse<ICollectionResponse<ICategory[]>> =
+    await getCategories();
+
+  return {
+    props: {
+      categories: {
+        item: categories.data,
+      },
+    },
+  };
+};

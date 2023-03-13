@@ -9,7 +9,7 @@ import { BsGithub } from "react-icons/bs";
 const Footer = () => {
   return (
     <>
-      <footer className="flex items-center justify-between ">
+      <footer className="flex items-center justify-between fixed bottom-2 w-full left-0 px-10">
         <div className="flex items-center gap-3">
           <Link href="/" className="flex items-center border-r-2 pr-3">
             <Image src="/logo.png" alt="image" width={35} height={35} />
