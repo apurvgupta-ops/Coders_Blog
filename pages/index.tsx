@@ -1,10 +1,17 @@
 import { getCategories } from "@/Http";
 import { AxiosResponse } from "axios";
 import { ICategory, ICollectionResponse } from "@/Types";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 
-export default function Home() {
+interface IPropTypes {
+  categories: {
+    items: ICategory[];
+  };
+}
+
+const Home: NextPage<IPropTypes> = ({ categories }) => {
+  console.log(categories.items);
   return (
     <>
       <Head>
@@ -14,21 +21,28 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      {categories.items.map((cate) => {
+        return <div key={cate.id}>{cate.attributes.Title}</div>;
+      })}
+
       <div>hello world</div>
     </>
   );
-}
+};
 
 export const getServerSideProps: GetServerSideProps = async () => {
   //categories
-  const { data }: AxiosResponse<ICollectionResponse<ICategory[]>> =
+  const { data: categories }: AxiosResponse<ICollectionResponse<ICategory[]>> =
     await getCategories();
 
+  console.log(categories);
   return {
     props: {
       categories: {
-        item: categories.data,
+        items: categories.data,
       },
     },
   };
 };
+
+export default Home;

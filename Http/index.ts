@@ -1,5 +1,5 @@
 import axios from "axios";
-import { categoriesUrl } from "./endpoints";
+import { categoriesUrl } from "./Endpoints";
 
 const api = axios.create({
   baseURL: process.env.API_URL,
@@ -8,6 +8,5 @@ const api = axios.create({
   },
 });
 
-export const getCategories = async () => {
-  api.get(categoriesUrl);
-};
+export const getCategories = async () => api.get(categoriesUrl);
+

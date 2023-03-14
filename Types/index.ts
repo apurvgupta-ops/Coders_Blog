@@ -4,7 +4,7 @@ export interface ICollectionAttribute{
 
 export interface ICategory {
     id: number,
-    attribute: ICollectionAttribute
+    attributes: ICollectionAttribute
 }
 
 export interface IPagination{
