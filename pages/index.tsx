@@ -3,6 +3,7 @@ import { AxiosResponse } from "axios";
 import { ICategory, ICollectionResponse } from "@/Types";
 import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
+import CategoriesTabs from "@/Components/CategoriesTabs";
 
 interface IPropTypes {
   categories: {
@@ -21,9 +22,7 @@ const Home: NextPage<IPropTypes> = ({ categories }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {categories.items.map((cate) => {
-        return <div key={cate.id}>{cate.attributes.Title}</div>;
-      })}
+      <CategoriesTabs categories={categories.items} />
 
       <div>hello world</div>
     </>
