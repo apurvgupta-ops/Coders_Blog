@@ -1,18 +1,22 @@
-import { getCategories } from "@/Http";
+import { getArticles, getCategories } from "@/Http";
 import { AxiosResponse } from "axios";
-import { ICategory, ICollectionResponse } from "@/Types";
+import { IArticle, ICategory, ICollectionResponse } from "@/Types";
 import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import CategoriesTabs from "@/Components/CategoriesTabs";
+import Category from "./category/[category]";
 
 interface IPropTypes {
   categories: {
     items: ICategory[];
   };
+  articles: {
+    items: IArticle[];
+  };
 }
 
-const Home: NextPage<IPropTypes> = ({ categories }) => {
-  console.log(categories.items);
+const Home: NextPage<IPropTypes> = ({ categories, articles }) => {
+  console.log(articles.items);
   return (
     <>
       <Head>
@@ -22,15 +26,21 @@ const Home: NextPage<IPropTypes> = ({ categories }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      {/* Categories */}
       <CategoriesTabs categories={categories.items} />
 
-      <div>hello world</div>
+      {/* Articles */}
+      <Category articles={articles.items} />
     </>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  //categories
+  //Article
+  const { data: articles }: AxiosResponse<ICollectionResponse<IArticle[]>> =
+    await getArticles();
+
+  //Categories
   const { data: categories }: AxiosResponse<ICollectionResponse<ICategory[]>> =
     await getCategories();
 
@@ -39,6 +49,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
     props: {
       categories: {
         items: categories.data,
+      },
+
+      articles: {
+        items: articles.data,
+        pagination: articles.meta.pagination,
       },
     },
   };
