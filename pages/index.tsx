@@ -4,7 +4,8 @@ import { IArticle, ICategory, ICollectionResponse } from "@/Types";
 import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import CategoriesTabs from "@/Components/CategoriesTabs";
-import Category from "./category/[category]";
+import Articles from "@/Components/Articles";
+import qs from "qs";
 
 interface IPropTypes {
   categories: {
@@ -16,7 +17,6 @@ interface IPropTypes {
 }
 
 const Home: NextPage<IPropTypes> = ({ categories, articles }) => {
-  console.log(articles.items);
   return (
     <>
       <Head>
@@ -30,25 +30,34 @@ const Home: NextPage<IPropTypes> = ({ categories, articles }) => {
       <CategoriesTabs categories={categories.items} />
 
       {/* Articles */}
-      <Category articles={articles.items} />
+      <Articles articles={articles.items} />
     </>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
+  //Options
+  const options = {
+    populate: ["author.avatar"],
+    sort: ["id:desc"],
+  };
+  const queryString = qs.stringify(options);
+
   //Article
   const { data: articles }: AxiosResponse<ICollectionResponse<IArticle[]>> =
-    await getArticles();
+    await getArticles(queryString);
+  // console.log("String", JSON.stringify(articles));
 
   //Categories
   const { data: categories }: AxiosResponse<ICollectionResponse<ICategory[]>> =
     await getCategories();
 
-  console.log(categories);
+  // console.log(categories);
   return {
     props: {
       categories: {
         items: categories.data,
+        
       },
 
       articles: {

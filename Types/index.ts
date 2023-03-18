@@ -24,12 +24,14 @@ export interface ICollectionResponse<T> {
   meta: IResourceMeta;
 }
 
-export interface IImage {
+export interface IImageData {
   data: {
     attributes: {
       url: string;
       formats: {
-        url: string;
+        small: {
+          url: string;
+        };
       };
     };
   };
@@ -55,16 +57,17 @@ export interface IAuthor {
   };
 }
 
-export interface IArticleAttributes {
+export interface IArticlesAttribute {
   Title: string;
-  Slug: string;
-  createdAt: string;
   body: string;
-  image: IImage;
+  Slug: string;
+  Image: IImageData;
+  createdAt: string;
   author: IAuthor;
+  shortDescription: string;
 }
 
-export interface IArticle<> {
+export interface IArticle {
   id: number;
-  attributes: IArticleAttributes;
+  attributes: IArticlesAttribute;
 }
