@@ -7,7 +7,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <div className="container mx-auto w-[80%] font-sans">
         <Header />
-        <main>
+        <main className="pb-36">
           <Component {...pageProps} />
         </main>
         <Footer />

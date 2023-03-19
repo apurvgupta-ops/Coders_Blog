@@ -1,4 +1,5 @@
 import { IArticle } from "@/Types";
+import { formatDate } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -23,10 +24,15 @@ const Card = ({ article }: IPropType) => {
           /> */}
           <span>
             {article.attributes.author.data.attributes.firstname}
-            {""}
-            {article.attributes.author.data.attributes.lastname} on
+            &nbsp;
+            {article.attributes.author.data.attributes.lastname} on&nbsp;
           </span>
-          <span>{article.attributes.createdAt}</span>
+          <span>{formatDate(article.attributes.createdAt)}</span>
+        </div>
+
+        <div>
+          {article.attributes.shortDescription.slice(0, 250)}
+          {article.attributes.shortDescription.length > 250 ? "..." : ""}
         </div>
       </Link>
     </div>
