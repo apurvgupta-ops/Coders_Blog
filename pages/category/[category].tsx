@@ -8,6 +8,8 @@ import CategoriesTabs from "@/Components/CategoriesTabs";
 import qs from "qs";
 import Articles from "@/Components/Articles";
 import { capitalFirstLetter, removeDash } from "@/utils";
+import Pagination from "@/Components/Pagination";
+import { useRouter } from "next/router";
 
 interface IPropType {
   categories: {
@@ -23,7 +25,12 @@ interface IPropType {
   slug: string;
 }
 
-const category = ({ categories, articles, slug }: IPropType) => {
+const Category = ({ categories, articles, slug }: IPropType) => {
+  const { page, pageCount } = articles.pagination;
+
+  const router = useRouter();
+  const { category: categorySlug } = router.query;
+
   const formattedTitle = () => {
     return capitalFirstLetter(removeDash(slug));
   };
@@ -41,6 +48,12 @@ const category = ({ categories, articles, slug }: IPropType) => {
       <CategoriesTabs categories={categories.items} />
 
       <Articles articles={articles.items} />
+
+      <Pagination
+        page={page}
+        pageCount={pageCount}
+        redirectUrl={`/category/${categorySlug}`}
+      />
     </div>
   );
 };
@@ -53,6 +66,10 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       category: {
         Slug: query.category,
       },
+    },
+    pagination: {
+      page: query.page ? +query.page : 1,
+      pageSize: 1,
     },
   };
 
@@ -82,4 +99,4 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     },
   };
 };
-export default category;
+export default Category;

@@ -41,11 +41,15 @@ const Home: NextPage<IPropTypes> = ({ categories, articles }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   //Options
   const options = {
     populate: ["author.avatar"],
     sort: ["id:desc"],
+    pagination: {
+      page: query.page ? +query.page : 1,
+      // pageSize: 1,
+    },
   };
   const queryString = qs.stringify(options);
 

@@ -1,12 +1,17 @@
 import { TDirection } from "@/Types";
+import { useRouter } from "next/router";
+import QueryString from "qs";
 import React from "react";
 
 interface IPropType {
   page: number;
   pageCount: number;
+  redirectUrl?: string;
 }
 
-const Pagination = ({ page, pageCount }: IPropType) => {
+const Pagination = ({ page, pageCount, redirectUrl = "/" }: IPropType) => {
+  const router = useRouter();
+
   const isNextDisabled = (): boolean => {
     return page >= pageCount;
   };
@@ -18,6 +23,13 @@ const Pagination = ({ page, pageCount }: IPropType) => {
   const handlePaginate = async (direction: TDirection) => {
     if (direction === 1 && isNextDisabled()) return;
     if (direction === -1 && isPrevDisabled()) return;
+
+    const queryString = QueryString.stringify({
+      //   ...router.query,
+      page: page + direction,
+    });
+
+    router.push(`${redirectUrl}?${queryString}`);
   };
 
   return (
