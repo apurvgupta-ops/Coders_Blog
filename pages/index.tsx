@@ -1,11 +1,12 @@
 import { getArticles, getCategories } from "@/Http";
 import { AxiosResponse } from "axios";
-import { IArticle, ICategory, ICollectionResponse } from "@/Types";
+import { IArticle, ICategory, ICollectionResponse, IPagination } from "@/Types";
 import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import CategoriesTabs from "@/Components/CategoriesTabs";
 import Articles from "@/Components/Articles";
 import qs from "qs";
+import Pagination from "@/Components/Pagination";
 
 interface IPropTypes {
   categories: {
@@ -13,10 +14,12 @@ interface IPropTypes {
   };
   articles: {
     items: IArticle[];
+    pagination: IPagination;
   };
 }
 
 const Home: NextPage<IPropTypes> = ({ categories, articles }) => {
+  const { page, pageCount } = articles.pagination;
   return (
     <>
       <Head>
@@ -31,6 +34,9 @@ const Home: NextPage<IPropTypes> = ({ categories, articles }) => {
 
       {/* Articles */}
       <Articles articles={articles.items} />
+
+      {/* Pagination */}
+      <Pagination page={page} pageCount={pageCount} />
     </>
   );
 };
