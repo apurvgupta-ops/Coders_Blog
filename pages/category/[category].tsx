@@ -1,13 +1,19 @@
 import { getArticles, getCategories } from "@/Http";
 import { GetServerSideProps } from "next";
 import { AxiosResponse } from "axios";
-import { IArticle, ICategory, ICollectionResponse, IPagination } from "@/Types";
+import {
+  IArticle,
+  ICategory,
+  ICollectionResponse,
+  IPagination,
+  IQueryOptions,
+} from "@/Types";
 import Head from "next/head";
 import React from "react";
 import CategoriesTabs from "@/Components/CategoriesTabs";
 import qs from "qs";
 import Articles from "@/Components/Articles";
-import { capitalFirstLetter, removeDash } from "@/utils";
+import { capitalFirstLetter, debounce, removeDash } from "@/utils";
 import Pagination from "@/Components/Pagination";
 import { useRouter } from "next/router";
 
@@ -35,6 +41,10 @@ const Category = ({ categories, articles, slug }: IPropType) => {
     return capitalFirstLetter(removeDash(slug));
   };
 
+  const handleSearch = (query: string) => {
+    router.push(`/category/${categorySlug}/?search=${query}`);
+  };
+
   return (
     <div>
       <Head>
@@ -45,7 +55,10 @@ const Category = ({ categories, articles, slug }: IPropType) => {
       </Head>
 
       {/* //Articles Based on category */}
-      <CategoriesTabs categories={categories.items} />
+      <CategoriesTabs
+        categories={categories.items}
+        handleSearch={debounce(handleSearch, 500)}
+      />
 
       <Articles articles={articles.items} />
 
@@ -59,7 +72,7 @@ const Category = ({ categories, articles, slug }: IPropType) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const options = {
+  const options: Partial<IQueryOptions> = {
     populate: ["author.avatar"],
     sort: ["id:desc"],
     filters: {
@@ -72,6 +85,14 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       pageSize: 1,
     },
   };
+
+  if (query.search) {
+    options.filters = {
+      Title: {
+        $containsi: query.search,
+      },
+    };
+  }
 
   const queryString = qs.stringify(options);
 

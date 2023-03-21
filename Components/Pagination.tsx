@@ -25,7 +25,7 @@ const Pagination = ({ page, pageCount, redirectUrl = "/" }: IPropType) => {
     if (direction === -1 && isPrevDisabled()) return;
 
     const queryString = QueryString.stringify({
-      //   ...router.query,
+      ...router.query,
       page: page + direction,
     });
 

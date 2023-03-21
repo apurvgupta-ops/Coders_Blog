@@ -6,9 +6,10 @@ import React from "react";
 
 interface IPropType {
   categories: ICategory[];
+  handleSearch: (query: string) => void;
 }
 
-const CategoriesTabs = ({ categories }: IPropType) => {
+const CategoriesTabs = ({ categories, handleSearch }: IPropType) => {
   const router = useRouter();
 
   const isActiveLink = (category: ICategory) => {
@@ -32,7 +33,7 @@ const CategoriesTabs = ({ categories }: IPropType) => {
             key={category.id}
             className={`${
               isActiveLink(category)
-                ? "border-b-2 border-primary text-primary"
+                ? "border-b-2 border-primary text-primary"  
                 : "border-b-2 border-white text-gray-500"
             }`}
           >
@@ -48,6 +49,7 @@ const CategoriesTabs = ({ categories }: IPropType) => {
         <input
           placeholder="Search Article"
           className="border outline-none border-none"
+          onChange={(e) => handleSearch(e.target.value)}
         />
       </div>
     </div>

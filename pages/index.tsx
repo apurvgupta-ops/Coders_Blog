@@ -1,12 +1,20 @@
 import { getArticles, getCategories } from "@/Http";
 import { AxiosResponse } from "axios";
-import { IArticle, ICategory, ICollectionResponse, IPagination } from "@/Types";
+import {
+  IArticle,
+  ICategory,
+  ICollectionResponse,
+  IPagination,
+  IQueryOptions,
+} from "@/Types";
 import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import CategoriesTabs from "@/Components/CategoriesTabs";
 import Articles from "@/Components/Articles";
 import qs from "qs";
 import Pagination from "@/Components/Pagination";
+import { useRouter } from "next/router";
+import { debounce } from "@/utils";
 
 interface IPropTypes {
   categories: {
@@ -19,7 +27,14 @@ interface IPropTypes {
 }
 
 const Home: NextPage<IPropTypes> = ({ categories, articles }) => {
+  const router = useRouter();
   const { page, pageCount } = articles.pagination;
+
+  const handleSearch = (query: string) => {
+    console.log("search", query);
+    router.push(`/?search=${query}`);
+  };
+
   return (
     <>
       <Head>
@@ -30,7 +45,10 @@ const Home: NextPage<IPropTypes> = ({ categories, articles }) => {
       </Head>
 
       {/* Categories */}
-      <CategoriesTabs categories={categories.items} />
+      <CategoriesTabs
+        categories={categories.items}
+        handleSearch={debounce(handleSearch, 500)}
+      />
 
       {/* Articles */}
       <Articles articles={articles.items} />
@@ -43,14 +61,23 @@ const Home: NextPage<IPropTypes> = ({ categories, articles }) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   //Options
-  const options = {
+  const options: Partial<IQueryOptions> = {
     populate: ["author.avatar"],
     sort: ["id:desc"],
     pagination: {
       page: query.page ? +query.page : 1,
-      // pageSize: 1,
+      pageSize: 1,
     },
   };
+  // console.log("search", query);
+  if (query.search) {
+    options.filters = {
+      Title: {
+        $containsi: query.search,
+      },
+    };
+  }
+
   const queryString = qs.stringify(options);
 
   //Article
