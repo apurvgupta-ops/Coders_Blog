@@ -1,3 +1,5 @@
+import { IArticle } from "@/Types";
+import serialize from "next-mdx-remote/serialize";
 export const formatDate = (dateString: string): string => {
   const date = new Date().toLocaleDateString("en-US", {
     year: "numeric",
@@ -30,4 +32,15 @@ export const debounce = (fn: (query: string) => void, timeout = 300) => {
   };
 
   return debounced;
+};
+
+export const serializeMarkdown = async (item: IArticle) => {
+  const body = await serialize(item.attributes.body as string);
+  return {
+    ...item,
+    attributes: {
+      ...item.attributes,
+      body,
+    },
+  };
 };

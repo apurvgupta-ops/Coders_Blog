@@ -11,7 +11,7 @@ interface IPropType {
 const Card = ({ article }: IPropType) => {
   return (
     <div className="">
-      <Link href={"#"}>
+      <Link href={`/article/${article.attributes.Slug}`}>
         <h1 className="font-semibold text-lg hover:decoration-2 hover:underline hover:decoration-primary hover:cursor-pointer ">
           {article.attributes.Title}
         </h1>
