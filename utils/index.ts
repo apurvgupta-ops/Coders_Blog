@@ -1,5 +1,5 @@
 import { IArticle } from "@/Types";
-import serialize from "next-mdx-remote/serialize";
+import { serialize } from "next-mdx-remote/serialize";
 export const formatDate = (dateString: string): string => {
   const date = new Date().toLocaleDateString("en-US", {
     year: "numeric",

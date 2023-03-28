@@ -28,14 +28,14 @@ const Slug = ({ article, notFound = false }: IPropType) => {
             {article.attributes.Title}
           </h1>
           <div className="flex items-center my-4">
-            <div className="rounded-lg overflow-hidden flex items-center justify-center mr-2">
+            {/* <div className="rounded-lg overflow-hidden flex items-center justify-center mr-2">
               <Image
                 src={`http://localhost:1337${article.attributes.author.data.attributes.avatar.data.attributes.formats.thumbnail.url}`}
                 height={40}
                 width={40}
                 alt="image"
               />
-            </div>
+            </div> */}
             <span className="text-sm font-bold text-gray-600">
               {article.attributes.author.data.attributes.firstname}{" "}
               {article.attributes.author.data.attributes.lastname} on &nbsp;
