@@ -10,24 +10,26 @@ interface IPropType {
 
 const Card = ({ article }: IPropType) => {
   return (
-    <div className="">
+    <div className=" hover:bg-gray-50 rounded-lg p-4">
       <Link href={`/article/${article.attributes.Slug}`}>
         <h1 className="font-semibold text-lg hover:decoration-2 hover:underline hover:decoration-primary hover:cursor-pointer ">
           {article.attributes.Title}
         </h1>
-        <div>
+        <div className="flex justify-between">
           {/* <Image
             src={`${process.env.API_URL}${article.attributes.author.data.attributes.avatar.data.attributes.formats.thumbnail.url}`}
             height={40}
             width={40}
             alt="Avatar Image"
           /> */}
-          <span>
+          <span className="text-sm text-gray-600">
             {article.attributes.author.data.attributes.firstname}
             &nbsp;
-            {article.attributes.author.data.attributes.lastname} on&nbsp;
+            {article.attributes.author.data.attributes.lastname}
           </span>
-          <span>{formatDate(article.attributes.createdAt)}</span>
+          <span className="text-gray-400 text-xs">
+            {formatDate(article.attributes.createdAt)}
+          </span>
         </div>
 
         <div>
