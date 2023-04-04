@@ -5,13 +5,13 @@ import Footer from "@/Components/Footer";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <div className="container mx-auto w-[80%] font-sans">
-        <Header />
-        <main className="pb-36">
-          <Component {...pageProps} />
-        </main>
-        <Footer />
-      </div>
+        <div className="container mx-auto w-[80%] font-sans">
+          <Header />
+          <main className="pb-36">
+            <Component {...pageProps} />
+          </main>
+          <Footer />
+        </div>
     </>
   );
 }

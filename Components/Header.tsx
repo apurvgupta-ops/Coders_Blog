@@ -29,15 +29,15 @@ const Header = () => {
       </div>
 
       <ul className="flex items-center gap-4">
-        <a href="#" className="text-gray-600 hover:text-gray-400">
+        <Link href="/login" className="text-gray-600 hover:text-gray-400">
           Login
-        </a>
-        <a
+        </Link>
+        <Link
           href="#"
           className="bg-primary hover:bg-primary-dark py-1 px-3 rounded-sm text-white"
         >
           Sign Up
-        </a>
+        </Link>
       </ul>
     </nav>
   );
