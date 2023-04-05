@@ -9,11 +9,11 @@ import { BsGithub } from "react-icons/bs";
 const Footer = () => {
   return (
     <>
-      <footer className="flex items-center justify-between fixed bottom-2 w-[80%]">
+      <footer className="flex items-center justify-between w-full py-4 ">
         <div className="flex items-center gap-3">
           <Link href="/" className="flex items-center border-r-2 pr-3">
             <Image src="/logo.png" alt="image" width={35} height={35} />
-            <span className="font-bold">Coders Blog</span>
+            <span className="font-bold ml-3">Coders Blog</span>
           </Link>
           <p className="">Coders @2023</p>
         </div>

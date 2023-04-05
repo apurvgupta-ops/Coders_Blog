@@ -2,16 +2,19 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
+import NextNProgress from "nextjs-progressbar";
+
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-        <div className="container mx-auto w-[80%] font-sans">
-          <Header />
-          <main className="pb-36">
-            <Component {...pageProps} />
-          </main>
-          <Footer />
-        </div>
+      <div className="container mx-auto w-[80%] font-sans">
+        <NextNProgress color="#53bd95" />
+        <Header />
+        <main className="pb-36">
+          <Component {...pageProps} />
+        </main>
+        <Footer />
+      </div>
     </>
   );
 }
