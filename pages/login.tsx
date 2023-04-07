@@ -9,7 +9,7 @@ const Login = () => {
         {/* Right */}
         <div className="w-[50%] flex justify-center items-center object-contain pt-10 pb-10">
           <Image
-            src="/login2.jpg"
+            src="/login4.jpg"
             alt="image"
             width={350}
             height={400}
