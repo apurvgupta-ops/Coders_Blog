@@ -3,14 +3,25 @@ import { formatDate } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
 interface IPropType {
   article: IArticle;
 }
 
 const Card = ({ article }: IPropType) => {
+  const router = useRouter();
+  const handleClick = () => {
+    router.push(`/article/${article.attributes.Slug}`);
+  };
   return (
-    <div className=" hover:bg-gray-50 rounded-lg p-4">
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.99 }}
+      className=" hover:bg-gray-50 rounded-lg p-4 cursor-pointer"
+      onClick={handleClick}
+    >
       <Link href={`/article/${article.attributes.Slug}`}>
         <h1 className="font-semibold text-lg hover:decoration-2 hover:underline hover:decoration-primary hover:cursor-pointer ">
           {article.attributes.Title}
@@ -37,7 +48,7 @@ const Card = ({ article }: IPropType) => {
           {article.attributes.shortDescription.length > 250 ? "..." : ""}
         </div>
       </Link>
-    </div>
+    </motion.div>
   );
 };
 

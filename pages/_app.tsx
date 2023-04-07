@@ -10,7 +10,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <div className="container mx-auto w-[80%] font-sans">
         <NextProgress color="#53bd95" />
         <Header />
-        <main className="pb-36">
+        <main className="pb-16">
           <Component {...pageProps} />
         </main>
         <Footer />
