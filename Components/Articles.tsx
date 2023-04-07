@@ -7,7 +7,7 @@ interface IPropType {
 }
 const Articles = ({ articles }: IPropType) => {
   return (
-    <div className="grid lg:grid-cols-2 grid-gap gap-16 mt-8">
+    <div className="grid lg:grid-cols-2 grid-gap gap-10 mt-8">
       {articles.map((article, index) =>
         index == 1 ? (
           <CardWithImage article={article} key={article.id} />

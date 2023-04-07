@@ -14,17 +14,17 @@ const Header = () => {
       </div>
       <div>
         <ul className="flex items-center gap-4">
-          <li className="text-gray-400 font-bold">
-            <a href="#">Products</a>
+          <li className="text-gray-600 font-extrabold">
+            <Link href="/">Blog</Link>
           </li>
           <li className="text-gray-400 font-bold">
-            <a href="#">Pricing</a>
+            <Link href="#">Pricing</Link>
           </li>
           <li className="text-gray-400 font-bold">
-            <a href="#">Docs</a>
+            <Link href="#">Docs</Link>
           </li>
           <li className="text-gray-400 font-bold">
-            <a href="#">Blog</a>
+            <Link href="#">Products</Link>
           </li>
         </ul>
       </div>
@@ -32,7 +32,7 @@ const Header = () => {
       <ul className="flex items-center gap-4">
         <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 1.0 }}>
           <Link
-            href="/login"
+            href="/auth/login"
             className="bg-primary hover:bg-primary-dark py-1 px-3 rounded-sm text-white"
           >
             Login
@@ -40,7 +40,7 @@ const Header = () => {
         </motion.button>
         <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 1.0 }}>
           <Link
-            href="#"
+            href="/auth/signup"
             className="bg-primary hover:bg-primary-dark py-1 px-3 rounded-sm text-white"
           >
             Sign Up
